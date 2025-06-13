@@ -1,0 +1,346 @@
+/* ========== Цветовая палитра ========== */
+:root {
+  /* Основные цвета (Bootstrap) [[6]] */
+  --primary: #4361ee;
+  --secondary: #3f37c9;
+  --success: #4cc9f0;
+  --danger: #f72585;
+  --warning: #f8961e;
+  --info: #4895ef;
+  --light: #f8f9fa;
+  --dark: #212529;
+
+  /* Цвета текста и фона */
+  --text: #333;
+  --bg: #fff;
+  --card-bg: #f8f9fa;
+  --border: #dee2e6;
+  --accent: #1a3d7c;
+  /* Дополнительный акцентный цвет [[7]] */
+
+  /* Типографика */
+  --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --transition-speed: 0.3s;
+}
+
+/* Темная тема */
+[data-theme="dark"] {
+  --text: #f8f9fa;
+  --bg: #121212;
+  --card-bg: #1e1e1e;
+  --border: #444;
+  --primary: #48bb78;
+  /* Альтернативный цвет для темной темы */
+}
+
+/* ========== Базовые стили ========== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg);
+  color: var(--text);
+  transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+/* ========== Структура приложения ========== */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  max-width: 1200px;
+  width: -webkit-fill-available;
+  margin: 0 auto;
+  padding: 20px;
+  flex: 1;
+}
+
+/* ========== Шапка ========== */
+.header {
+  padding: 20px;
+  background: var(--primary);
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.header form input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 4px;
+  border: none;
+  transition: box-shadow 0.2s;
+}
+
+.header form input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.5);
+  /* Подсветка при фокусе [[1]] */
+}
+
+.header .badge {
+  background: var(--danger);
+  color: white;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  font-size: 0.8rem;
+}
+
+/* ========== Фильтры ========== */
+.filters {
+  margin-bottom: 20px;
+  background: var(--card-bg);
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Range slider (стилизация) [[2]] */
+.filters input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  background: transparent;
+}
+
+.filters input[type="range"]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 8px;
+  background: var(--primary);
+  border-radius: 5px;
+}
+
+.filters input[type="range"]::-moz-range-track {
+  width: 100%;
+  height: 8px;
+  background: var(--primary);
+  border-radius: 5px;
+}
+
+/* Toggle switch (стилизация) [[3]] */
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+  background: var(--border);
+  border-radius: 20px;
+  transition: background 0.3s;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-switch .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--border);
+  transition: .4s;
+  border-radius: 20px;
+}
+
+.toggle-switch .slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 2px;
+  bottom: 2px;
+  background: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked+.toggle-switch .slider {
+  background: var(--primary);
+}
+
+input:checked+.toggle-switch .slider:before {
+  transform: translateX(20px);
+}
+
+/* ========== Список книг ========== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+/* Адаптация под мобильные устройства [[4]] */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+    /* Одна колонка на мобильных */
+  }
+}
+
+.card {
+  background: var(--card-bg);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: transform var(--transition-speed);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.card h3 a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+/* ========== Кнопки и формы ========== */
+button {
+  cursor: pointer;
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  transition: opacity var(--transition-speed), background var(--transition-speed);
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+input,
+select {
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--card-bg);
+  color: var(--text);
+  transition: border-color var(--transition-speed);
+}
+
+input:focus,
+select:focus {
+  border-color: var(--primary);
+  outline: none;
+}
+
+/* ========== Прочие элементы ========== */
+.flex {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.reading-settings select {
+  padding: 6px 10px;
+  margin-top: 5px;
+}
+
+.theme-preview .card {
+  width: 100px;
+  height: 150px;
+  padding: 10px;
+}
+
+/* ========== Дополнительные улучшения ========== */
+/* Анимация появления */
+.fade-in {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity var(--transition-speed) ease-out, transform var(--transition-speed) ease-out;
+}
+
+.fade-in.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Отступы по умолчанию */
+.spacer {
+  margin-top: 20px;
+}
+
+/* Центрирование контента */
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* Подсказка при фокусе */
+.tooltip {
+  position: absolute;
+  bottom: 125%;
+  /* Позиционирование над полем */
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--primary);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  white-space: nowrap;
+  font-size: 0.85rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s, visibility 0.2s;
+  z-index: 10;
+}
+
+/* Показываем tooltip при фокусе */
+input:focus+.tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Стрелочка под tooltip */
+.tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: var(--primary) transparent transparent transparent;
+}
